@@ -13,7 +13,7 @@ public class IOCallUtil {
         O call(I input) throws IOException;
     }
 
-    public static <I, O> O wrapToUncheckedIO(IOCall<I, O> ioCall, I input) {
+    public static <I, O> O uncheckedIO(IOCall<I, O> ioCall, I input) {
         try {
             return ioCall.call(input);
         } catch (IOException e) {
@@ -22,7 +22,7 @@ public class IOCallUtil {
         }
     }
 
-    public static <I, O> O wrapToUncheckedIO(NoArgIOCall<O> ioCall) {
+    public static <I, O> O uncheckedIO(NoArgIOCall<O> ioCall) {
         try {
             return ioCall.call();
         } catch (IOException e) {

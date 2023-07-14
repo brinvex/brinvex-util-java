@@ -18,7 +18,7 @@ public class IOCallUtilTest {
     @Test
     public void wrapToUncheckedIO_nonExceptional() {
         Path path = Paths.get("./");
-        List<Path> childPaths = IOCallUtil.wrapToUncheckedIO(Files::list, path).collect(Collectors.toList());
+        List<Path> childPaths = IOCallUtil.uncheckedIO(Files::list, path).collect(Collectors.toList());
         assertNotNull(childPaths);
     }
 
@@ -26,7 +26,7 @@ public class IOCallUtilTest {
     public void wrapToUncheckedIO_exceptional() {
         Path path = Paths.get("./nonexistent");
         try {
-            IOCallUtil.wrapToUncheckedIO(Files::list, path);
+            IOCallUtil.uncheckedIO(Files::list, path);
             Assertions.fail();
         } catch (UncheckedIOException ioException) {
             String expectedMsg = String.format(
