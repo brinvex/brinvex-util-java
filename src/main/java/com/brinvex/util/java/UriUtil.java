@@ -23,4 +23,16 @@ public class UriUtil {
             throw new RuntimeException(e);
         }
     }
+
+    public static String extractSchemeAndHost(String url) {
+        try {
+            URI uri = new URI(url);
+            String host = uri.getHost();
+            String scheme = uri.getScheme();
+            return scheme + "://" + host;
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
