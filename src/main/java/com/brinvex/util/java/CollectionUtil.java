@@ -1,8 +1,11 @@
 package com.brinvex.util.java;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
 
 import static java.lang.String.format;
@@ -92,6 +95,14 @@ public class CollectionUtil {
         map.put(key5, value5);
         map.put(key6, value6);
         return map;
+    }
+
+    public static <E> Set<E> asSet(Collection<E> collection) {
+        return collection == null ? null : collection instanceof Set<?> ? (Set<E>) collection : new HashSet<>(collection);
+    }
+
+    public static <E> List<E> asList(Collection<E> collection) {
+        return collection == null ? null : collection instanceof List<?> ? (List<E>) collection : new ArrayList<>(collection);
     }
 
     public static <E> E getFirstThrowIfMore(Collection<E> collection) {
