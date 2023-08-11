@@ -11,7 +11,7 @@ public class LimitedLinkedMap<K, V> extends LinkedHashMap<K, V> {
     private final int maxEntries;
 
     public LimitedLinkedMap(int maxEntries) {
-        super(maxEntries * 10 / 7, 0.7f, true);
+        super(maxEntries * 10 / 7, 0.7f, false);
         this.maxEntries = maxEntries;
     }
 
