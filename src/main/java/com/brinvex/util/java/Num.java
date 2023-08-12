@@ -2,14 +2,20 @@ package com.brinvex.util.java;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 import java.util.Collection;
 import java.util.Comparator;
 
+import static java.math.RoundingMode.HALF_UP;
+
 public class Num {
 
     public static final RoundingMode DEFAULT_ROUNDING_MODE = RoundingMode.HALF_UP;
+    public static final MathContext MATH_CONTEXT_P8_HALF_UP = new MathContext(8, HALF_UP);
+    public static final MathContext MATH_CONTEXT_P12_HALF_UP = new MathContext(12, HALF_UP);
+    public static final MathContext MATH_CONTEXT_P16_HALF_UP = new MathContext(16, HALF_UP);
 
     public static final BigDecimal _0$00 = new BigDecimal("0.00");
     public static final BigDecimal _0$0000 = new BigDecimal("0.0000");
@@ -288,6 +294,18 @@ public class Num {
 
     public static Double round2(Double number) {
         return round(number, 2);
+    }
+
+    public static BigDecimal multiplyP8(BigDecimal d1, BigDecimal d2) {
+        return d1.multiply(d2, MATH_CONTEXT_P8_HALF_UP);
+    }
+
+    public static BigDecimal multiplyP12(BigDecimal d1, BigDecimal d2) {
+        return d1.multiply(d2, MATH_CONTEXT_P12_HALF_UP);
+    }
+
+    public static BigDecimal multiplyP16(BigDecimal d1, BigDecimal d2) {
+        return d1.multiply(d2, MATH_CONTEXT_P16_HALF_UP);
     }
 
 }
