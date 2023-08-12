@@ -101,6 +101,17 @@ public class CollectionUtil {
         return collection == null ? null : collection instanceof Set<?> ? (Set<E>) collection : new HashSet<>(collection);
     }
 
+    public static <E> Set<E> asSetWithoutExcluded(Collection<E> collection, Collection<E> excluded) {
+        if (collection == null) {
+            return null;
+        }
+        Set<E> set = new HashSet<>(collection);
+        if (excluded != null) {
+            set.removeAll(excluded);
+        }
+        return set;
+    }
+
     public static <E> List<E> asList(Collection<E> collection) {
         return collection == null ? null : collection instanceof List<?> ? (List<E>) collection : new ArrayList<>(collection);
     }
