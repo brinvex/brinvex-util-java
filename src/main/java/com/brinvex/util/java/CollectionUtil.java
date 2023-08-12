@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -99,6 +100,10 @@ public class CollectionUtil {
 
     public static <E> Set<E> asSet(Collection<E> collection) {
         return collection == null ? null : collection instanceof Set<?> ? (Set<E>) collection : new HashSet<>(collection);
+    }
+
+    public static <E> LinkedHashSet<E> asLinkedSet(Collection<E> collection) {
+        return collection == null ? null : collection instanceof LinkedHashSet<?> ? (LinkedHashSet<E>) collection : new LinkedHashSet<>(collection);
     }
 
     public static <E> Set<E> asSetWithoutExcluded(Collection<E> collection, Collection<E> excluded) {
