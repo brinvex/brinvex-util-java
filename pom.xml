@@ -102,7 +102,7 @@
                     <branch>refs/heads/main</branch>
                     <includes><include>**/*</include></includes>
                     <!-- GitHub repo name -->
-                    <repositoryName>brinvex-mvn-repo-public</repositoryName>
+                    <repositoryName>brinvex-mvnrepo</repositoryName>
                     <!-- GitHub username  -->
                     <repositoryOwner>brinvex</repositoryOwner>
                     <merge>true</merge>
