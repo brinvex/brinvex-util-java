@@ -25,6 +25,8 @@ public class Num {
     public static final BigDecimal _0$001 = new BigDecimal("0.001");
     public static final BigDecimal _0$005 = new BigDecimal("0.005");
     public static final BigDecimal _0$01 = new BigDecimal("0.01");
+    public static final BigDecimal _0$05 = new BigDecimal("0.05");
+    public static final BigDecimal _0$06 = new BigDecimal("0.06");
 
     public static final BigDecimal _0$10 = new BigDecimal("0.10");
 
