@@ -2,6 +2,7 @@ package com.brinvex.util.java;
 
 import java.util.Collection;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class NullUtil {
@@ -87,6 +88,10 @@ public class NullUtil {
             Function<T2, O> fnc3
     ) {
         return input -> nullSafe(input, fnc1, fnc2, fnc3);
+    }
+
+    public static <T, V> Predicate<T> nonNull(Function<? super T, ? extends V> valueExtractor) {
+        return t -> valueExtractor.apply(t) != null;
     }
 
     public static <E, C extends Collection<E>> C nullIfEmpty(C collection) {
