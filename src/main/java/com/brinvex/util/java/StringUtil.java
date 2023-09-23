@@ -24,7 +24,7 @@ public class StringUtil {
     }
 
     public static String deleteAllWhitespaces(String str) {
-        if (str == null || str.length() == 0) {
+        if (str == null || str.isEmpty()) {
             return str;
         }
         final int sz = str.length();
@@ -49,8 +49,19 @@ public class StringUtil {
             return null;
         }
         s = s.trim();
-        if ("".equals(s)) {
+        if (s.isEmpty()) {
             return null;
+        }
+        return s;
+    }
+
+    public static String stripToEmpty(String s) {
+        if (s == null) {
+            return LazyHolder.EMPTY;
+        }
+        s = s.trim();
+        if (s.isEmpty()) {
+            return LazyHolder.EMPTY;
         }
         return s;
     }
