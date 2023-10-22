@@ -2,6 +2,7 @@ package com.brinvex.util.java;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -149,12 +150,22 @@ public class CollectionUtil {
     public static <K, V extends Comparable<? super V>> LinkedHashMap<K, V> sortMapByValues(Map<K, V> map) {
         List<Entry<K, V>> list = new ArrayList<>(map.entrySet());
         list.sort(Entry.comparingByValue());
-
         LinkedHashMap<K, V> result = new LinkedHashMap<>();
         for (Entry<K, V> entry : list) {
             result.put(entry.getKey(), entry.getValue());
         }
+        return result;
+    }
 
+    public static <K, V> LinkedHashMap<K, V> sortMapByValues(
+            Map<K, V> map, Comparator<? super V> cmp
+    ) {
+        List<Entry<K, V>> list = new ArrayList<>(map.entrySet());
+        list.sort(Entry.comparingByValue(cmp));
+        LinkedHashMap<K, V> result = new LinkedHashMap<>();
+        for (Entry<K, V> entry : list) {
+            result.put(entry.getKey(), entry.getValue());
+        }
         return result;
     }
 }
