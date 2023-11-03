@@ -21,4 +21,18 @@ public class DateUtil {
         return dateTime1.isBefore(dateTime2) ? dateTime1 : dateTime2;
     }
 
+    public static boolean bothNullOrEqual(LocalDateTime dateTime1, LocalDateTime dateTime2) {
+        if (dateTime1 != null && dateTime2 != null) {
+            return dateTime1.isEqual(dateTime2);
+        }
+        return dateTime1 == null && dateTime2 == null;
+    }
+
+    public static boolean bothNullOrEqual(LocalDate date1, LocalDate date2) {
+        if (date1 != null && date2 != null) {
+            return date1.isEqual(date2);
+        }
+        return date1 == null && date2 == null;
+    }
+
 }
