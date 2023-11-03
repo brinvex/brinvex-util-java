@@ -7,18 +7,18 @@ _Brinvex-Util-Java_ is a compact library containing various helper utilities for
 ### Maven dependency declaration
 ````
 <repository>
-    <id>brinvex-mvnrepo</id>
-    <url>https://github.com/brinvex/brinvex-mvnrepo/raw/main/</url>
+    <id>repository.brinvex</id>
+    <name>Brinvex Repository</name>
+    <url>https://github.com/brinvex/brinvex-repo/raw/main/</url>
     <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
+        <enabled>false</enabled>
     </snapshots>
 </repository>
         
 <dependency>
     <groupId>com.brinvex.util</groupId>
     <artifactId>brinvex-util-java</artifactId>
-    <version>1.15.0/version>
+    <version>1.16.0/version>
 </dependency>
 ````
 
