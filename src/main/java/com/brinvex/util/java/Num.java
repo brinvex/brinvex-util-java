@@ -101,7 +101,7 @@ public class Num {
         return bd.compareTo(BigDecimal.ZERO) <= 0;
     }
 
-    public static boolean nullOrNumEqual(
+    public static boolean nullOrEqual(
             BigDecimal bd1,
             BigDecimal bd2,
             int scale,
@@ -113,14 +113,21 @@ public class Num {
         if (bd1 == null || bd2 == null) {
             return false;
         }
+        return equal(bd1, bd2, scale, roundingMode);
+    }
+
+    public static boolean nullOrEqual(BigDecimal bd1, BigDecimal bd2, int scale) {
+        return nullOrEqual(bd1, bd2, scale, DEFAULT_ROUNDING_MODE);
+    }
+
+    public static boolean equal(BigDecimal bd1, BigDecimal bd2, int scale, RoundingMode roundingMode) {
         bd1 = bd1.setScale(scale, roundingMode);
         bd2 = bd2.setScale(scale, roundingMode);
         return bd1.compareTo(bd2) == 0;
-
     }
 
-    public static boolean nullOrNumEqual(BigDecimal bd1, BigDecimal bd2, int scale) {
-        return nullOrNumEqual(bd1, bd2, scale, DEFAULT_ROUNDING_MODE);
+    public static boolean equal(BigDecimal bd1, BigDecimal bd2, int scale) {
+         return equal(bd1, bd2, scale, DEFAULT_ROUNDING_MODE);
     }
 
     public static BigDecimal avg(Collection<BigDecimal> decimals, int scale) {
