@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static java.lang.String.format;
@@ -167,5 +168,16 @@ public class CollectionUtil {
             result.put(entry.getKey(), entry.getValue());
         }
         return result;
+    }
+
+    public static <K, V> LinkedHashMap<K, V> copyAcceptGetAsLinkedMap(Map<K, V> sourceMap, Consumer<Map<K, V>> copyConsumer) {
+        LinkedHashMap<K, V> copiedMap;
+        if (sourceMap == null) {
+            copiedMap = null;
+        } else {
+            copiedMap = new LinkedHashMap<>(sourceMap);
+        }
+        copyConsumer.accept(copiedMap);
+        return copiedMap;
     }
 }
