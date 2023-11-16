@@ -170,7 +170,7 @@ public class CollectionUtil {
         return result;
     }
 
-    public static <K, V> LinkedHashMap<K, V> copyAcceptGetAsLinkedMap(Map<K, V> sourceMap, Consumer<Map<K, V>> copyConsumer) {
+    public static <K, V> LinkedHashMap<K, V> copyToLinkedMap(Map<K, V> sourceMap, Consumer<Map<K, V>> copyConsumer) {
         LinkedHashMap<K, V> copiedMap;
         if (sourceMap == null) {
             copiedMap = null;
