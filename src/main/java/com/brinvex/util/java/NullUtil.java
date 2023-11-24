@@ -94,6 +94,10 @@ public class NullUtil {
         return t -> valueExtractor.apply(t) != null;
     }
 
+    public static <T, V> Predicate<T> isNull(Function<? super T, ? extends V> valueExtractor) {
+        return t -> valueExtractor.apply(t) == null;
+    }
+
     public static <E, C extends Collection<E>> C nullIfEmpty(C collection) {
         return collection == null || collection.isEmpty() ? null : collection;
     }
