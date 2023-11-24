@@ -18,7 +18,7 @@ _Brinvex-Util-Java_ is a compact library containing various helper utilities for
 <dependency>
     <groupId>com.brinvex.util</groupId>
     <artifactId>brinvex-util-java</artifactId>
-    <version>1.20.0/version>
+    <version>1.21.0/version>
 </dependency>
 ````
 
