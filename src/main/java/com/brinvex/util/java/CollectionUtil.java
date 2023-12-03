@@ -180,4 +180,9 @@ public class CollectionUtil {
         copyConsumer.accept(copiedMap);
         return copiedMap;
     }
+
+    public static <E> List<E> append(List<E> list, E element) {
+        list.add(element);
+        return list;
+    }
 }
