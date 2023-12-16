@@ -118,6 +118,35 @@ public class StringUtil {
         return new String[] {s, ""};
     }
 
+    public static String cleanMultiWhitespaces(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+        final int size = str.length();
+        final char[] newChars = new char[size];
+        int count = 0;
+        int whitespacesCount = 0;
+        boolean startWhitespaces = true;
+        for (int i = 0; i < size; i++) {
+            final char actualChar = str.charAt(i);
+            final boolean isWhitespace = Character.isWhitespace(actualChar);
+            if (isWhitespace) {
+                if (whitespacesCount == 0 && !startWhitespaces) {
+                    newChars[count++] = LazyHolder.SPACE.charAt(0);
+                }
+                whitespacesCount++;
+            } else {
+                startWhitespaces = false;
+                newChars[count++] = (actualChar == 160 ? 32 : actualChar);
+                whitespacesCount = 0;
+            }
+        }
+        if (startWhitespaces) {
+            return LazyHolder.EMPTY;
+        }
+        return new String(newChars, 0, count - (whitespacesCount > 0 ? 1 : 0)).trim();
+    }
+
     public static List<String> generateWords(char[]... charRanges) {
         if (charRanges.length == 0) {
             return new ArrayList<>();
