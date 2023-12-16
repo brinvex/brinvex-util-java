@@ -97,6 +97,27 @@ public class StringUtil {
         return Pattern.compile(regex).matcher(str).find();
     }
 
+    public static String[] splitByPercentile(String s, int percentile) {
+        if (percentile < 1 || percentile > 99) {
+            throw new IllegalArgumentException("Invalid input: percentile=" + percentile);
+        }
+        if (s == null) {
+            return null;
+        }
+        int length = s.length();
+        if (length <= 1) {
+            return new String[] {s, ""};
+        }
+        int delimiterIndex = (int) (length / 100.0 * percentile);
+        while (delimiterIndex < length) {
+            if (Character.isWhitespace(s.charAt(delimiterIndex))) {
+                return new String[] {s.substring(0, delimiterIndex), s.substring(delimiterIndex)};
+            }
+            delimiterIndex++;
+        }
+        return new String[] {s, ""};
+    }
+
     public static List<String> generateWords(char[]... charRanges) {
         if (charRanges.length == 0) {
             return new ArrayList<>();

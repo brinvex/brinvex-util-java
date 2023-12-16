@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class StringUtilTest {
 
@@ -21,5 +22,29 @@ public class StringUtilTest {
         assertEquals(
                 List.of("AX1", "AX2", "BX1", "BX2", "CX1", "CX2"),
                 StringUtil.generateWords("ABC".toCharArray(), "X".toCharArray(), "12".toCharArray()));
+    }
+
+    @Test
+    public void splitByPercent1() {
+        String s1 = "every month you send the agency a single payment that is portioned out to each of your creditors until";
+        String s2 = " your debts are paid off";
+        String s = s1 + s2;
+        String[] parts = StringUtil.splitByPercentile(s, 80);
+
+        assertNotNull(parts);
+        assertEquals(s1, parts[0]);
+        assertEquals(s2, parts[1]);
+    }
+
+    @Test
+    public void splitByPercent2() {
+        String s1 = "every   month \t you send the agency a single payment that is portioned out to each of your creditors until";
+        String s2 = " your debts are paid off";
+        String s = s1 + s2;
+        String[] parts = StringUtil.splitByPercentile(s, 80);
+
+        assertNotNull(parts);
+        assertEquals(s1, parts[0]);
+        assertEquals(s2, parts[1]);
     }
 }
