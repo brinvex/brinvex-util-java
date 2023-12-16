@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
+import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toCollection;
 
 public class StringUtil {
@@ -90,6 +91,10 @@ public class StringUtil {
             str = str + newSuffix;
         }
         return str;
+    }
+
+    public static boolean containsRegex(String str, String regex) {
+        return Pattern.compile(regex).matcher(str).find();
     }
 
     public static List<String> generateWords(char[]... charRanges) {
