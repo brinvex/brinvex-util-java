@@ -2,6 +2,7 @@ package com.brinvex.util.java;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -78,6 +79,17 @@ public class StringUtil {
             return null;
         }
         return str.replaceAll("<[^>]*>", "");
+    }
+
+    public static String replaceSuffix(String str, String oldSuffix, String newSuffix) {
+        if (str == null) {
+            return null;
+        }
+        if (str.endsWith(oldSuffix)) {
+            str = str.substring(0, str.length() - oldSuffix.length());
+            str = str + newSuffix;
+        }
+        return str;
     }
 
     public static List<String> generateWords(char[]... charRanges) {
