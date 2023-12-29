@@ -53,8 +53,8 @@ public class StringUtilTest {
     @EnabledForJreRange(min = JRE.JAVA_21)
     @Test
     public void removeEmojis() {
-        String orig = "a✅b⭐c❌d";
-        String clean = StringUtil.deleteEmojis(orig);
-        assertEquals("abcd", clean);
+        String orig = "a✅b⭐c❌d123";
+        String clean = StringUtil.deleteEmojiPresentations(orig);
+        assertEquals("abcd123", clean);
     }
 }

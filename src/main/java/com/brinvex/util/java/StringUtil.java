@@ -2,7 +2,6 @@ package com.brinvex.util.java;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
@@ -22,7 +21,7 @@ public class StringUtil {
         private static final String EMPTY = "";
         private static final String SPACE = " ";
         private static final Pattern FORMAT_CHARACTER_PATTERN = Pattern.compile("\\p{Cf}");
-        private static final Pattern EMOJI_PATTERN = Pattern.compile("\\p{IsEmoji}");
+        private static final Pattern EMOJI_PRESENTATION_PATTERN = Pattern.compile("\\p{IsEmoji_Presentation}");
     }
 
     public static String deleteAllWhitespaces(String str) {
@@ -78,11 +77,11 @@ public class StringUtil {
     /**
      * Requires JAVA 21+
      */
-    public static String deleteEmojis(String str) {
+    public static String deleteEmojiPresentations(String str) {
         if (str == null) {
             return null;
         }
-        return LazyHolder.EMOJI_PATTERN.matcher(str).replaceAll("");
+        return LazyHolder.EMOJI_PRESENTATION_PATTERN.matcher(str).replaceAll("");
     }
 
     public static String deleteTags(String str) {
