@@ -1,6 +1,8 @@
 package com.brinvex.util.java;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledForJreRange;
+import org.junit.jupiter.api.condition.JRE;
 
 import java.util.List;
 
@@ -46,5 +48,13 @@ public class StringUtilTest {
         assertNotNull(parts);
         assertEquals(s1, parts[0]);
         assertEquals(s2, parts[1]);
+    }
+
+    @EnabledForJreRange(min = JRE.JAVA_21)
+    @Test
+    public void removeEmojis() {
+        String orig = "a✅b⭐c❌d";
+        String clean = StringUtil.deleteEmojis(orig);
+        assertEquals("abcd", clean);
     }
 }

@@ -22,7 +22,7 @@ public class StringUtil {
         private static final String EMPTY = "";
         private static final String SPACE = " ";
         private static final Pattern FORMAT_CHARACTER_PATTERN = Pattern.compile("\\p{Cf}");
-
+        private static final Pattern EMOJI_PATTERN = Pattern.compile("\\p{IsEmoji}");
     }
 
     public static String deleteAllWhitespaces(String str) {
@@ -73,6 +73,16 @@ public class StringUtil {
             return null;
         }
         return LazyHolder.FORMAT_CHARACTER_PATTERN.matcher(str).replaceAll("");
+    }
+
+    /**
+     * Requires JAVA 21+
+     */
+    public static String deleteEmojis(String str) {
+        if (str == null) {
+            return null;
+        }
+        return LazyHolder.EMOJI_PATTERN.matcher(str).replaceAll("");
     }
 
     public static String deleteTags(String str) {
