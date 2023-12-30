@@ -1,38 +1,48 @@
 package com.brinvex.util.java;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
+@SuppressWarnings("DuplicatedCode")
 public class UriUtil {
 
-    /**
-     * https://stackoverflow.com/a/9608008/1157213
-     */
-    public static String extractDomainName(String url) {
-        try {
-            URI uri = new URI(url);
-            String domain = uri.getHost();
-            if (domain.startsWith("www.")) {
-                return domain.substring(4);
-            }
-            if (domain.startsWith("www3.")) {
-                return domain.substring(5);
-            }
-            return domain;
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+    public static String extractSchemeAndHost(String url) {
+        int start = url.indexOf("://");
+        if (start < 0) {
+            start = 0;
+        } else {
+            start += 3;
         }
+        int end = url.indexOf('/', start);
+        if (end < 0) {
+            end = url.length();
+        }
+        String schemaAndhost = url.substring(0, end);
+
+        int port = schemaAndhost.indexOf(':', start);
+        if (port >= 0) {
+            schemaAndhost = schemaAndhost.substring(0, port);
+        }
+        return schemaAndhost;
     }
 
-    public static String extractSchemeAndHost(String url) {
-        try {
-            URI uri = new URI(url);
-            String host = uri.getHost();
-            String scheme = uri.getScheme();
-            return scheme + "://" + host;
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+    public static String extractDomainName(String url) {
+        int start = url.indexOf("://");
+        if (start < 0) {
+            start = 0;
+        } else {
+            start += 3;
         }
+        int end = url.indexOf('/', start);
+        if (end < 0) {
+            end = url.length();
+        }
+        String domainName = url.substring(start, end);
+
+        int port = domainName.indexOf(':');
+        if (port >= 0) {
+            domainName = domainName.substring(0, port);
+        }
+        domainName = domainName.replaceFirst("^[wW]{3}.*?\\.", "");
+        return domainName;
     }
+
 
 }
