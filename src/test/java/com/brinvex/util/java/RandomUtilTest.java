@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class RandomUtilTest {
 
     @Test
-    void randomDoublesSummingToOne() {
+    public void randomDoublesSummingToOne() {
         Random random = new Random();
         {
             double[] randDoubles = RandomUtil.randomDoublesSummingToOne(1, random::nextDouble);

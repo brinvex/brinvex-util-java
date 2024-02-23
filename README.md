@@ -23,7 +23,7 @@ _Brinvex-Util-Java_ is a compact library containing various helper utilities for
 ````
 
 ### Requirements
-- Java 11 or above
+- Java 17 or above
 
 ### License
 
