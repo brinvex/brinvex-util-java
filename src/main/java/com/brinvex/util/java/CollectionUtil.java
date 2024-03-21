@@ -184,7 +184,7 @@ public class CollectionUtil {
         return list;
     }
 
-    public static <E> List<E> joinedList(Collection<E> cole1, Collection<E> cole2) {
+    public static <E> List<E> joinToList(Collection<E> cole1, Collection<E> cole2) {
         List<E> result = new ArrayList<>(cole1);
         result.addAll(cole2);
         return result;
