@@ -127,15 +127,12 @@ public class CollectionUtil {
 
     public static <E> E getFirstThrowIfMore(Collection<E> collection) {
         int size = collection.size();
-        switch (size) {
-            case 0:
-                return null;
-            case 1:
-                return collection.iterator().next();
-            default:
-                throw new IllegalStateException(
-                        format("Expecting empty or one-element collection but got #%s, %s", size, collection));
-        }
+        return switch (size) {
+            case 0 -> null;
+            case 1 -> collection.iterator().next();
+            default -> throw new IllegalStateException(
+                    format("Expecting empty or one-element collection but got #%s, %s", size, collection));
+        };
     }
 
     public static <E> E getLast(List<E> elements) {
@@ -170,6 +167,7 @@ public class CollectionUtil {
         return result;
     }
 
+    @Deprecated
     public static <K, V> LinkedHashMap<K, V> copyToLinkedMap(Map<K, V> sourceMap, Consumer<Map<K, V>> copyConsumer) {
         LinkedHashMap<K, V> copiedMap;
         if (sourceMap == null) {
@@ -184,5 +182,11 @@ public class CollectionUtil {
     public static <E> List<E> append(List<E> list, E element) {
         list.add(element);
         return list;
+    }
+
+    public static <E> List<E> joinedList(Collection<E> cole1, Collection<E> cole2) {
+        List<E> result = new ArrayList<>(cole1);
+        result.addAll(cole2);
+        return result;
     }
 }
