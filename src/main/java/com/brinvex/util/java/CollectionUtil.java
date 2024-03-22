@@ -103,7 +103,7 @@ public class CollectionUtil {
         return map;
     }
 
-    public static <K extends Comparable<K>, V> TreeMap<K, V> treeMap(
+    public static <K extends Comparable<? super K>, V> TreeMap<K, V> treeMap(
             K key1,
             V value1
     ) {
