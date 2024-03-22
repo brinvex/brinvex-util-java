@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -99,6 +100,15 @@ public class CollectionUtil {
         map.put(key4, value4);
         map.put(key5, value5);
         map.put(key6, value6);
+        return map;
+    }
+
+    public static <K extends Comparable<K>, V> TreeMap<K, V> treeMap(
+            K key1,
+            V value1
+    ) {
+        TreeMap<K, V> map = new TreeMap<>();
+        map.put(key1, value1);
         return map;
     }
 
