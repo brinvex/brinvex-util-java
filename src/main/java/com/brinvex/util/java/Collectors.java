@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
@@ -80,6 +81,16 @@ public class Collectors {
             Function<? super T, ? extends U> valueMapper
     ) {
         return new CollectorImpl<>(LinkedHashMap::new,
+                uniqKeysMapAccumulator(keyMapper, valueMapper),
+                uniqKeysMapMerger(),
+                CH_ID);
+    }
+
+    public static <T, K, U> Collector<T, ?, TreeMap<K, U>> toTreeMap(
+            Function<? super T, ? extends K> keyMapper,
+            Function<? super T, ? extends U> valueMapper
+    ) {
+        return new CollectorImpl<>(TreeMap::new,
                 uniqKeysMapAccumulator(keyMapper, valueMapper),
                 uniqKeysMapMerger(),
                 CH_ID);
