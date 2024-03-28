@@ -199,4 +199,10 @@ public class CollectionUtil {
         result.addAll(cole2);
         return result;
     }
+
+    public static <E> LinkedHashSet<E> joinToLinkedSet(Collection<E> cole1, Collection<E> cole2) {
+        LinkedHashSet<E> result = new LinkedHashSet<>(cole1);
+        result.addAll(cole2);
+        return result;
+    }
 }
