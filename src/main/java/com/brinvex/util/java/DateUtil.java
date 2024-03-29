@@ -2,8 +2,17 @@ package com.brinvex.util.java;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 
 public class DateUtil {
+
+    public static LocalDate firstDayOfYear(int year) {
+        return LocalDate.of(year, Month.JANUARY, 1);
+    }
+
+    public static LocalDate lastDayOfYear(int year) {
+        return LocalDate.of(year, Month.DECEMBER, 31);
+    }
 
     public static LocalDate maxDate(LocalDate date1, LocalDate date2) {
         return date1.isAfter(date2) ? date1 : date2;
