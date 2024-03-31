@@ -44,7 +44,7 @@ public class DateUtil {
         return date1 == null && date2 == null;
     }
 
-    public LocalDate adjustWeekendToFriday(LocalDate day) {
+    public static LocalDate adjustWeekendToFriday(LocalDate day) {
         return day == null ? null : switch (day.getDayOfWeek()) {
             case SATURDAY -> day.minusDays(1);
             case SUNDAY -> day.minusDays(2);
@@ -52,7 +52,7 @@ public class DateUtil {
         };
     }
 
-    public boolean isWeekend(LocalDate day) {
+    public static boolean isWeekend(LocalDate day) {
         return switch (day.getDayOfWeek()) {
             case SATURDAY, SUNDAY -> true;
             default -> false;
