@@ -1,5 +1,6 @@
 package com.brinvex.util.java;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -42,6 +43,14 @@ public class DateUtil {
             return date1.isEqual(date2);
         }
         return date1 == null && date2 == null;
+    }
+
+    public LocalDate adjustWeekendToFriday(LocalDate day) {
+        return day == null ? null : switch (day.getDayOfWeek()) {
+            case SATURDAY -> day.minusDays(1);
+            case SUNDAY -> day.minusDays(2);
+            default -> day;
+        };
     }
 
 }
