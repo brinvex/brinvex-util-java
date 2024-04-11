@@ -2,6 +2,7 @@ package com.brinvex.util.java;
 
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -81,6 +82,16 @@ public class Collectors {
             Function<? super T, ? extends U> valueMapper
     ) {
         return new CollectorImpl<>(LinkedHashMap::new,
+                uniqKeysMapAccumulator(keyMapper, valueMapper),
+                uniqKeysMapMerger(),
+                CH_ID);
+    }
+
+    public static <T, K, U> Collector<T, ?, LinkedHashMap<K, U>> toHashMap(
+            Function<? super T, ? extends K> keyMapper,
+            Function<? super T, ? extends U> valueMapper
+    ) {
+        return new CollectorImpl<>(HashMap::new,
                 uniqKeysMapAccumulator(keyMapper, valueMapper),
                 uniqKeysMapMerger(),
                 CH_ID);
