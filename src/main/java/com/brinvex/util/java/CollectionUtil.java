@@ -205,4 +205,16 @@ public class CollectionUtil {
         result.addAll(cole2);
         return result;
     }
+
+    public static <E> HashSet<E> intersectionAsHashSet(Collection<E> cole1, Collection<E> cole2) {
+        HashSet<E> result = new HashSet<>(cole1);
+        result.retainAll(cole2);
+        return result;
+    }
+
+    public static <E> LinkedHashSet<E> intersectionAsLinkedSet(Collection<E> cole1, Collection<E> cole2) {
+        LinkedHashSet<E> result = new LinkedHashSet<>(cole1);
+        result.retainAll(cole2);
+        return result;
+    }
 }
