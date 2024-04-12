@@ -3,7 +3,9 @@ package com.brinvex.util.java;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -21,6 +23,9 @@ public class Collectors {
 
     private static final Set<Collector.Characteristics> CH_ID
             = Collections.unmodifiableSet(EnumSet.of(Collector.Characteristics.IDENTITY_FINISH));
+    static final Set<Collector.Characteristics> CH_UNORDERED_ID
+            = Collections.unmodifiableSet(EnumSet.of(Collector.Characteristics.UNORDERED,
+            Collector.Characteristics.IDENTITY_FINISH));
 
     private record CollectorImpl<T, A, R>(
             Supplier<A> supplier,
@@ -106,4 +111,33 @@ public class Collectors {
                 uniqKeysMapMerger(),
                 CH_ID);
     }
+
+    public static <T> Collector<T, ?, Set<T>> toHashSet() {
+        return new CollectorImpl<>(HashSet::new, Set::add,
+                (left, right) -> {
+                    if (left.size() < right.size()) {
+                        right.addAll(left);
+                        return right;
+                    } else {
+                        left.addAll(right);
+                        return left;
+                    }
+                },
+                CH_UNORDERED_ID);
+    }
+
+    public static <T> Collector<T, ?, Set<T>> toLinkedSet() {
+        return new CollectorImpl<>(LinkedHashSet::new, Set::add,
+                (left, right) -> {
+                    if (left.size() < right.size()) {
+                        right.addAll(left);
+                        return right;
+                    } else {
+                        left.addAll(right);
+                        return left;
+                    }
+                },
+                CH_UNORDERED_ID);
+    }
+
 }
