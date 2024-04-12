@@ -1,6 +1,7 @@
 package com.brinvex.util.java;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -102,4 +103,14 @@ public class NullUtil {
         return collection == null || collection.isEmpty() ? null : collection;
     }
 
+    /**
+     * Returns null if two objects are equal, otherwise it returns the first object.
+     */
+    public static <T> T nullIf(T object1, T object2) {
+        return Objects.equals(object1, object2) ? null : object1;
+    }
+
+    public static <T1, T2> Function<T1, T2> nullIf(Function<T1, T2> object1Fnc, T2 object2) {
+        return o -> nullIf(object1Fnc.apply(o), object2);
+    }
 }
