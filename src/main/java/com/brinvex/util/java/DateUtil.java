@@ -59,4 +59,12 @@ public class DateUtil {
         };
     }
 
+    public static boolean isFirstDayOfMonth(LocalDate day) {
+        return day.getDayOfMonth() == 1;
+    }
+
+    public static boolean isLastDayOfMonth(LocalDate day) {
+        return day.plusDays(1).getDayOfMonth() == 1;
+    }
+
 }
