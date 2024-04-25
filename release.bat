@@ -3,7 +3,7 @@ set JAVA_HOME="C:\tools\java\jdk-21.0.1"
 set MVN_HOME="C:\tools\mvn\mvn-3.9.4"
 
 REM Dont forget to update version in README
-set new_version=1.47.0
+set new_version=1.48.0
 
 call %MVN_HOME%\bin\mvn clean package
 
