@@ -145,6 +145,15 @@ public class CollectionUtil {
         };
     }
 
+    public static <E> E getFirstThrowIfNoneOrMore(Collection<E> collection) {
+        int size = collection.size();
+        if (size == 1) {
+            return collection.iterator().next();
+        }
+        throw new IllegalStateException(
+                format("Expecting one-element collection but got #%s, %s", size, collection));
+    }
+
     public static <E> E getLast(List<E> elements) {
         int size = elements.size();
         return size == 0 ? null : elements.get(size - 1);
