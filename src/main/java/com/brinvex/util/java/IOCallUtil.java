@@ -2,6 +2,7 @@ package com.brinvex.util.java;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.function.Function;
 
 public class IOCallUtil {
 
@@ -20,6 +21,17 @@ public class IOCallUtil {
             throw new UncheckedIOException(String.format("IOException occurred: type=[%s], msg=[%s], input=[%s]",
                     e.getClass().getName(), e.getMessage(), input), e);
         }
+    }
+
+    public static <I, O> Function<I, O> uncheckedIO(IOCall<I, O> fnc) {
+        return input -> {
+            try {
+                return fnc.call(input);
+            } catch (IOException e) {
+                throw new UncheckedIOException(String.format("IOException occurred: type=[%s], msg=[%s]",
+                        e.getClass().getName(), e.getMessage()), e);
+            }
+        };
     }
 
     public static <I, O> O uncheckedIO(NoArgIOCall<O> ioCall) {
