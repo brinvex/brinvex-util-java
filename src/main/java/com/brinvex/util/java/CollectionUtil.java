@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -225,5 +228,30 @@ public class CollectionUtil {
         LinkedHashSet<E> result = new LinkedHashSet<>(cole1);
         result.retainAll(cole2);
         return result;
+    }
+
+    public static <E> boolean removeAdjacentDuplicates(Collection<E> collection, BiPredicate<E, E> equalityPredicate) {
+        Iterator<E> iterator = collection.iterator();
+
+        if (!iterator.hasNext()) {
+            return false;
+        }
+
+        boolean modified = false;
+        E prev = iterator.next();
+        while (iterator.hasNext()) {
+            E current = iterator.next();
+            if (equalityPredicate.test(prev, current)) {
+                iterator.remove();
+                modified = true;
+            } else {
+                prev = current;
+            }
+        }
+        return modified;
+    }
+
+    public static boolean removeAdjacentDuplicates(Collection<?> collection) {
+        return removeAdjacentDuplicates(collection, Objects::equals);
     }
 }
