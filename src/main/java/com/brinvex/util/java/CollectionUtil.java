@@ -230,6 +230,9 @@ public class CollectionUtil {
         return result;
     }
 
+    /*
+     * After migrating to Java 21 - allow only sequence collections
+     */
     public static <E> boolean removeAdjacentDuplicates(Collection<E> collection, BiPredicate<E, E> equalityPredicate) {
         Iterator<E> iterator = collection.iterator();
 
@@ -254,4 +257,13 @@ public class CollectionUtil {
     public static boolean removeAdjacentDuplicates(Collection<?> collection) {
         return removeAdjacentDuplicates(collection, Objects::equals);
     }
+
+    public static boolean removeAdjacentValueDuplicates(Map<?, ?> collection) {
+        return removeAdjacentValueDuplicates(collection, Objects::equals);
+    }
+
+    public static <E> boolean removeAdjacentValueDuplicates(Map<?, E> collection, BiPredicate<E, E> valueEqualityPredicate) {
+        return removeAdjacentDuplicates(collection.entrySet(), (e1, e2) -> valueEqualityPredicate.test(e1.getValue(), e2.getValue()));
+    }
+
 }

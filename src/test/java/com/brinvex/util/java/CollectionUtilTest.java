@@ -19,7 +19,7 @@ public class CollectionUtilTest {
     @Test
     public void removeAdjacentDuplicatesFromTreeMap() {
         TreeMap<Integer, Integer> m1 = new TreeMap<>(Map.of(1, 11, 2, 22, 3, 33, 33, 33, 44, 44));
-        boolean modified = CollectionUtil.removeAdjacentDuplicates(m1.entrySet(), (e1, e2) -> e1.getValue().equals(e2.getValue()));
+        boolean modified = CollectionUtil.removeAdjacentValueDuplicates(m1);
         assertTrue(modified);
 
         TreeMap<Integer, Integer> m2 = new TreeMap<>(Map.of(1, 11, 2, 22, 3, 33, 44, 44));
