@@ -6,7 +6,7 @@
 
     <groupId>com.brinvex.util</groupId>
     <artifactId>brinvex-util-java</artifactId>
-    <version>1.53.0</version>
+    <version>1.54.0</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -16,6 +16,7 @@
         <junit-jupiter.version>5.10.1</junit-jupiter.version>
 
         <github.global.server>github</github.global.server>
+        <mockito.version>5.2.0</mockito.version>
     </properties>
 
     <dependencyManagement>
@@ -30,6 +31,11 @@
                 <artifactId>junit-jupiter-engine</artifactId>
                 <version>${junit-jupiter.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -42,6 +48,11 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
