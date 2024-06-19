@@ -20,7 +20,7 @@ https://github.com/mockito/mockito/issues/3111
 /*
 todo 1 - Upgrade Mockito (and ByteBuddy) to support Java version 21+
 */
-public class LazyValueTest {
+public class LazyConstantTest {
 
     @EnabledForJreRange(max = JRE.JAVA_20)
     @Test
@@ -28,7 +28,7 @@ public class LazyValueTest {
         @SuppressWarnings("unchecked") Supplier<String> mockedExpensiveFunction = Mockito.mock(Supplier.class);
         Mockito.when(mockedExpensiveFunction.get())
                 .thenReturn("ok");
-        LazyValue<String> testee = LazyValue.nonThreadSafe(mockedExpensiveFunction);
+        LazyConstant<String> testee = LazyConstant.nonThreadSafe(mockedExpensiveFunction);
         Mockito.verify(mockedExpensiveFunction, Mockito.never())
                 .get();
         testee.get();
@@ -46,7 +46,7 @@ public class LazyValueTest {
                     Thread.sleep(1000L);
                     return "ok";
                 });
-        LazyValue<String> testee = LazyValue.nonThreadSafe(mockedExpensiveFunction);
+        LazyConstant<String> testee = LazyConstant.nonThreadSafe(mockedExpensiveFunction);
         Mockito.verify(mockedExpensiveFunction, Mockito.never())
                 .get();
 
@@ -70,7 +70,7 @@ public class LazyValueTest {
                     Thread.sleep(1000L);
                     return "ok";
                 });
-        LazyValue<String> testee = LazyValue.threadSafe(mockedExpensiveFunction);
+        LazyConstant<String> testee = LazyConstant.threadSafe(mockedExpensiveFunction);
         Mockito.verify(mockedExpensiveFunction, Mockito.never())
                 .get();
 

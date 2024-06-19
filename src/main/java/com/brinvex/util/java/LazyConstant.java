@@ -6,25 +6,25 @@ import java.util.function.Supplier;
 /**
  * Inspired by <a href="https://www.baeldung.com/java-lambda-lazy-field-initialization">www.baeldung.com/java-lambda-lazy-field-initialization</a>
  */
-public interface LazyValue<T> extends Supplier<T> {
+public interface LazyConstant<T> extends Supplier<T> {
 
-    static <T> LazyValue<T> threadSafe(Supplier<T> supplier) {
-        return new ThreadSafeLazyValue<>(supplier);
+    static <T> LazyConstant<T> threadSafe(Supplier<T> supplier) {
+        return new ThreadSafeLazyConstant<>(supplier);
     }
 
-    static <T> LazyValue<T> nonThreadSafe(Supplier<T> supplier) {
-        return new NonThreadSafeLazyValue<>(supplier);
+    static <T> LazyConstant<T> nonThreadSafe(Supplier<T> supplier) {
+        return new NonThreadSafeLazyConstant<>(supplier);
     }
 
-    final class ThreadSafeLazyValue<T> implements LazyValue<T> {
+    final class ThreadSafeLazyConstant<T> implements LazyConstant<T> {
 
         private final Supplier<T> supplier;
 
         private final AtomicReference<Object> storedValueRef = new AtomicReference<>();
 
-        private final Object nullObject = new Object();
+        private static final Object nullSubstitute = new Object();
 
-        public ThreadSafeLazyValue(Supplier<T> supplier) {
+        public ThreadSafeLazyConstant(Supplier<T> supplier) {
             this.supplier = supplier;
         }
 
@@ -36,10 +36,10 @@ public interface LazyValue<T> extends Supplier<T> {
                     storedValue = storedValueRef.get();
                     if (storedValue == null) {
                         T value = supplier.get();
-                        storedValueRef.set(value == null ? nullObject : value);
+                        storedValueRef.set(value == null ? nullSubstitute : value);
                         return value;
                     } else {
-                        if (storedValue == nullObject) {
+                        if (storedValue == nullSubstitute) {
                             return null;
                         }
                         @SuppressWarnings({"ReassignedVariable", "unchecked"})
@@ -48,7 +48,7 @@ public interface LazyValue<T> extends Supplier<T> {
                     }
                 }
             } else {
-                if (storedValue == nullObject) {
+                if (storedValue == nullSubstitute) {
                     return null;
                 }
                 @SuppressWarnings({"ReassignedVariable", "unchecked"})
@@ -58,15 +58,15 @@ public interface LazyValue<T> extends Supplier<T> {
         }
     }
 
-    final class NonThreadSafeLazyValue<T> implements LazyValue<T> {
+    final class NonThreadSafeLazyConstant<T> implements LazyConstant<T> {
 
         private final Supplier<T> supplier;
 
         private Object storedValue = null;
 
-        private final Object nullObject = new Object();
+        private static final Object nullSubstitute = new Object();
 
-        public NonThreadSafeLazyValue(Supplier<T> supplier) {
+        public NonThreadSafeLazyConstant(Supplier<T> supplier) {
             this.supplier = supplier;
         }
 
@@ -74,10 +74,10 @@ public interface LazyValue<T> extends Supplier<T> {
         public T get() {
             if (storedValue == null) {
                 T value = supplier.get();
-                storedValue = value == null ? nullObject : value;
+                storedValue = value == null ? nullSubstitute : value;
                 return value;
             } else {
-                if (storedValue == nullObject) {
+                if (storedValue == nullSubstitute) {
                     return null;
                 }
                 @SuppressWarnings({"unchecked"})
