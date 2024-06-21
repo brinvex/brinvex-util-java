@@ -25,6 +25,9 @@ public class VennMaps<KEY, LEFT_VALUE, RIGHT_VALUE> {
     private Set<KEY> intersectionKeys;
     private Set<KEY> unionKeys;
 
+    private Map<KEY, LEFT_VALUE> intersectionWithLeftValues;
+    private Map<KEY, RIGHT_VALUE> intersectionWithRightValues;
+
     public static <KEY, LEFT_VALUE, RIGHT_VALUE> VennMaps<KEY, LEFT_VALUE, RIGHT_VALUE> of(Map<KEY, LEFT_VALUE> left, Map<KEY, RIGHT_VALUE> right) {
         return new VennMaps<>(new LinkedHashMap<>(left), new LinkedHashMap<>(right));
     }
@@ -93,6 +96,24 @@ public class VennMaps<KEY, LEFT_VALUE, RIGHT_VALUE> {
             unionKeys.addAll(right.keySet());
         }
         return unionKeys;
+    }
+
+    public Map<KEY, LEFT_VALUE> intersectionWithLeftValues() {
+        if (intersectionWithLeftValues == null) {
+            intersectionWithLeftValues = intersectionKeys()
+                    .stream()
+                    .collect(toLinkedMap(identity(), left::get));
+        }
+        return intersectionWithLeftValues;
+    }
+
+    public Map<KEY, RIGHT_VALUE> intersectionWithRightValues() {
+        if (intersectionWithRightValues == null) {
+            intersectionWithRightValues = intersectionKeys()
+                    .stream()
+                    .collect(toLinkedMap(identity(), right::get));
+        }
+        return intersectionWithRightValues;
     }
 
     @Override
