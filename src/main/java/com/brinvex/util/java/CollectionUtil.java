@@ -123,7 +123,7 @@ public class CollectionUtil {
         return collection == null ? null : collection instanceof LinkedHashSet<?> ? (LinkedHashSet<E>) collection : new LinkedHashSet<>(collection);
     }
 
-    public static <E> Set<E> asSetWithoutExcluded(Collection<E> collection, Collection<E> excluded) {
+    public static <E> Set<E> toSetWithoutExcluded(Collection<E> collection, Collection<E> excluded) {
         if (collection == null) {
             return null;
         }
