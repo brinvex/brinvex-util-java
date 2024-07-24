@@ -7,13 +7,13 @@ import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ParallelUtilTest {
+public class ThreadUtilTest {
 
     @Test
     public void executeAndSleep_fast() throws InterruptedException {
         Instant testStart = Instant.now();
         Duration taskMinDuration = Duration.ofSeconds(2);
-        ParallelUtil.executeAndSleep(taskMinDuration, () -> {
+        ThreadUtil.executeAndSleep(taskMinDuration, () -> {
             //no-op
         });
         Instant testEnd = Instant.now();
@@ -27,7 +27,7 @@ public class ParallelUtilTest {
         Instant testStart = Instant.now();
         Duration taskMinDuration = Duration.ofSeconds(2);
         Duration taskDuration = Duration.ofSeconds(3);
-        ParallelUtil.executeAndSleep(taskMinDuration, () -> {
+        ThreadUtil.executeAndSleep(taskMinDuration, () -> {
             try {
                 Thread.sleep(taskDuration.toMillis());
             } catch (InterruptedException e) {
@@ -47,7 +47,7 @@ public class ParallelUtilTest {
         Duration taskMinDuration = Duration.ofSeconds(2);
         Thread t = new Thread(() -> {
             try {
-                ParallelUtil.executeAndSleep(taskMinDuration, () -> {
+                ThreadUtil.executeAndSleep(taskMinDuration, () -> {
                     throw new RuntimeException("e1");
                 });
             } catch (InterruptedException e) {

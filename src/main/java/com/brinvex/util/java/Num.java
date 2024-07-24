@@ -297,6 +297,27 @@ public class Num {
         return newValue.subtract(oldValue).divide(oldValue, scale, roundingMode);
     }
 
+    public static BigDecimal relativeChangeInPct(BigInteger oldValue, BigInteger newValue, int scale) {
+        return relativeChangeInPct(new BigDecimal(oldValue), new BigDecimal(newValue), scale, DEFAULT_ROUNDING_MODE);
+    }
+
+    public static BigDecimal relativeChangeInPct(long oldValue, long newValue, int scale) {
+        return relativeChangeInPct(new BigDecimal(oldValue), new BigDecimal(newValue), scale, DEFAULT_ROUNDING_MODE);
+    }
+
+    public static BigDecimal relativeChangeInPct(BigDecimal oldValue, BigDecimal newValue, int scale) {
+        return relativeChangeInPct(oldValue, newValue, scale, DEFAULT_ROUNDING_MODE);
+    }
+
+    public static BigDecimal relativeChangeInPct(
+            BigDecimal oldValue,
+            BigDecimal newValue,
+            int scale,
+            RoundingMode roundingMode
+    ) {
+        return ((newValue.subtract(oldValue)).multiply(_100$00)).divide(oldValue, scale, roundingMode);
+    }
+
     public static Double round(Double number, int scale) {
         return number == null ? null : BigDecimal.valueOf(number).setScale(scale, RoundingMode.HALF_UP).doubleValue();
     }

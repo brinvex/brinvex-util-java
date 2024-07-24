@@ -12,8 +12,21 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.function.Function;
 
-public class ParallelUtil {
+public class ThreadUtil {
+
+    public static void sleep(Duration duration, Function<InterruptedException, RuntimeException> interruptedExceptionWrapper) {
+        try {
+            Thread.sleep(duration.toMillis());
+        } catch (InterruptedException e) {
+            throw interruptedExceptionWrapper.apply(e);
+        }
+    }
+
+    public static void sleep(Duration duration) {
+        sleep(duration, interruptedException -> new RuntimeException("Thread interrupted while trying to sleep %s".formatted(duration), interruptedException));
+    }
 
     public static <R> List<R> invokeAllAndGetResults(
             int nThreads,
