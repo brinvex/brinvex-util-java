@@ -67,4 +67,8 @@ public class DateUtil {
         return day.plusDays(1).getDayOfMonth() == 1;
     }
 
+    public static boolean isFirstDayOfYear(LocalDate day) {
+        return day.getDayOfYear() == 1;
+    }
+
 }
