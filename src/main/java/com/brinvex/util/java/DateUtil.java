@@ -52,6 +52,10 @@ public class DateUtil {
         };
     }
 
+    public static LocalDate adjustToFirstDayOfPreviousYear(LocalDate day) {
+        return day == null ? null : day.withDayOfYear(1).minusYears(1);
+    }
+
     public static boolean isWeekend(LocalDate day) {
         return switch (day.getDayOfWeek()) {
             case SATURDAY, SUNDAY -> true;
