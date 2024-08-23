@@ -1,12 +1,17 @@
-
 set JAVA_HOME="C:\tools\java\jdk-21.0.1"
-set MVN_HOME="C:\tools\mvn\mvn-3.9.4"
 
-REM Dont forget to update version in README
-set new_version=1.55.4
+set new_version=1.55.5
 
-call %MVN_HOME%\bin\mvn clean package
+set jsh_content=^
+    Files.writeString(Path.of("README.md"), ^
+        Files.readString(Path.of("README.md")).replaceAll(^
+            "<brinvex-util-java.version>(.*)</brinvex-util-java.version>", ^
+            "<brinvex-util-java.version>%%s</brinvex-util-java.version>".formatted(System.getenv("new_version"))), ^
+    StandardOpenOption.TRUNCATE_EXISTING);
 
-call %MVN_HOME%\bin\mvn versions:set -DnewVersion=%new_version%
-call %MVN_HOME%\bin\mvn versions:commit
-call %MVN_HOME%\bin\mvn clean deploy -DskipTests
+echo %jsh_content% | %JAVA_HOME%\bin\jshell -
+
+call mvnw clean package
+call mvnw versions:set -DnewVersion=%new_version%
+call mvnw versions:commit
+call mvnw clean deploy -DskipTests

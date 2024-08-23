@@ -20,6 +20,7 @@ public class ThreadUtil {
         try {
             Thread.sleep(duration.toMillis());
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             throw interruptedExceptionWrapper.apply(e);
         }
     }
