@@ -9,6 +9,7 @@ _Brinvex-Util-Java_ is a compact library containing various helper utilities for
 <properties>
     <brinvex-util-java.version>1.55.5</brinvex-util-java.version>
 </properties>    
+
 <repository>
     <id>repository.brinvex</id>
     <name>Brinvex Repository</name>
