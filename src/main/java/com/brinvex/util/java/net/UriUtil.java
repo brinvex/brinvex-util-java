@@ -1,4 +1,4 @@
-package com.brinvex.util.java;
+package com.brinvex.util.java.net;
 
 @SuppressWarnings("DuplicatedCode")
 public class UriUtil {

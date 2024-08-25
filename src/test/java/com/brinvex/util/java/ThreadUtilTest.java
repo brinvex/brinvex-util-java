@@ -6,6 +6,7 @@ import java.time.Duration;
 import java.time.Instant;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ThreadUtilTest {
 
@@ -18,7 +19,7 @@ public class ThreadUtilTest {
         });
         Instant testEnd = Instant.now();
         Duration testDuration = Duration.between(testStart, testEnd);
-        Assert.assertTrue(testDuration.compareTo(taskMinDuration) > 0);
+        assertTrue(testDuration.compareTo(taskMinDuration) > 0);
 
     }
 
@@ -36,8 +37,8 @@ public class ThreadUtilTest {
         });
         Instant testEnd = Instant.now();
         Duration testDuration = Duration.between(testStart, testEnd);
-        Assert.assertTrue(testDuration.compareTo(taskMinDuration) > 0);
-        Assert.assertTrue(testDuration.compareTo(taskDuration) > 0);
+        assertTrue(testDuration.compareTo(taskMinDuration) > 0);
+        assertTrue(testDuration.compareTo(taskDuration) > 0);
 
     }
 
@@ -60,7 +61,7 @@ public class ThreadUtilTest {
 
         Instant testEnd = Instant.now();
         Duration testDuration = Duration.between(testStart, testEnd);
-        Assert.assertTrue(testDuration.compareTo(taskMinDuration) < 0);
+        assertTrue(testDuration.compareTo(taskMinDuration) < 0);
 
     }
 

@@ -1,4 +1,4 @@
-package com.brinvex.util.java;
+package com.brinvex.util.java.venndiagram;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;

@@ -1,4 +1,4 @@
-package com.brinvex.util.java;
+package com.brinvex.util.java.net;
 
 import java.io.IOException;
 import java.io.InputStream;

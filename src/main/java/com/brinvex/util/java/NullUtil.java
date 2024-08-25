@@ -91,7 +91,7 @@ public class NullUtil {
         return input -> nullSafe(input, fnc1, fnc2, fnc3);
     }
 
-    public static <T, V> Predicate<T> nonNull(Function<? super T, ? extends V> valueExtractor) {
+    public static <T, V> Predicate<T> notNull(Function<? super T, ? extends V> valueExtractor) {
         return t -> valueExtractor.apply(t) != null;
     }
 

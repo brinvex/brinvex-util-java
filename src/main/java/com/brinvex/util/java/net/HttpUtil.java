@@ -1,4 +1,4 @@
-package com.brinvex.util.java;
+package com.brinvex.util.java.net;
 
 import java.net.HttpCookie;
 import java.net.http.HttpHeaders;

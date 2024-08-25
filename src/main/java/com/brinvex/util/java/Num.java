@@ -13,53 +13,11 @@ import static java.math.RoundingMode.HALF_UP;
 public class Num {
 
     public static final RoundingMode DEFAULT_ROUNDING_MODE = RoundingMode.HALF_UP;
-    public static final MathContext MATH_CONTEXT_P8_HALF_UP = new MathContext(8, HALF_UP);
-    public static final MathContext MATH_CONTEXT_P12_HALF_UP = new MathContext(12, HALF_UP);
-    public static final MathContext MATH_CONTEXT_P16_HALF_UP = new MathContext(16, HALF_UP);
-
-    public static final BigDecimal _0$00 = new BigDecimal("0.00");
-    public static final BigDecimal _0$0000 = new BigDecimal("0.0000");
-
-    public static final BigDecimal _0$00001 = new BigDecimal("0.00001");
-    public static final BigDecimal _0$0001 = new BigDecimal("0.0001");
-    public static final BigDecimal _0$001 = new BigDecimal("0.001");
-    public static final BigDecimal _0$005 = new BigDecimal("0.005");
-    public static final BigDecimal _0$01 = new BigDecimal("0.01");
-    public static final BigDecimal _0$05 = new BigDecimal("0.05");
-    public static final BigDecimal _0$06 = new BigDecimal("0.06");
-
-    public static final BigDecimal _0$10 = new BigDecimal("0.10");
-
-    public static final BigDecimal _1$00 = new BigDecimal("1.00");
-
-    public static final BigDecimal _1$0000 = new BigDecimal("1.0000");
-
-    public static final BigDecimal _2$00 = new BigDecimal("2.00");
-
-    public static final BigDecimal _3$0 = new BigDecimal("3.0");
-
-    public static final BigDecimal _3$00 = new BigDecimal("3.00");
-
-    public static final BigDecimal _4$00 = new BigDecimal("4.00");
-
-    public static final BigDecimal _5$00 = new BigDecimal("5.00");
-
-    public static final BigDecimal _6$00 = new BigDecimal("6.00");
-
-    public static final BigDecimal _7$00 = new BigDecimal("7.00");
-
-    public static final BigDecimal _8$00 = new BigDecimal("8.00");
-
-    public static final BigDecimal _9$00 = new BigDecimal("9.00");
+    public static final MathContext MATH_CTX_P8_HALF_UP = new MathContext(8, HALF_UP);
+    public static final MathContext MATH_CTX_P12_HALF_UP = new MathContext(12, HALF_UP);
+    public static final MathContext MATH_CTX_P16_HALF_UP = new MathContext(16, HALF_UP);
 
     public static final BigDecimal _100$00 = new BigDecimal("100.00");
-
-    public static final BigDecimal _1_000_000$00 = new BigDecimal("1000000.00");
-
-    public static final BigInteger _1_000_000 = new BigInteger("1000000");
-
-    public static final BigInteger _2_000_000_000 = new BigInteger("2000000000");
-
 
     public static BigDecimal of(String s) {
         return s == null ? null : new BigDecimal(s);
@@ -136,17 +94,14 @@ public class Num {
 
     public static BigDecimal avg(Collection<BigDecimal> decimals, int scale, RoundingMode roundingMode) {
         int size = decimals.size();
-        switch (size) {
-            case 0:
-                return null;
-            case 1:
-                return decimals.iterator().next();
-            default:
-                return decimals
-                        .stream()
-                        .reduce(BigDecimal.ZERO, BigDecimal::add)
-                        .divide(BigDecimal.valueOf(size), scale, roundingMode);
-        }
+        return switch (size) {
+            case 0 -> null;
+            case 1 -> decimals.iterator().next();
+            default -> decimals
+                    .stream()
+                    .reduce(BigDecimal.ZERO, BigDecimal::add)
+                    .divide(BigDecimal.valueOf(size), scale, roundingMode);
+        };
     }
 
     public static BigDecimal intAvg(Collection<Integer> decimals, int scale) {
@@ -155,45 +110,36 @@ public class Num {
 
     public static BigDecimal intAvg(Collection<Integer> decimals, int scale, RoundingMode roundingMode) {
         int size = decimals.size();
-        switch (size) {
-            case 0:
-                return null;
-            case 1:
-                return BigDecimal.valueOf(decimals.iterator().next());
-            default:
-                return BigDecimal.valueOf(decimals
-                                .stream()
-                                .reduce(0, Integer::sum))
-                        .divide(BigDecimal.valueOf(size), scale, roundingMode);
-        }
+        return switch (size) {
+            case 0 -> null;
+            case 1 -> BigDecimal.valueOf(decimals.iterator().next());
+            default -> BigDecimal.valueOf(decimals
+                            .stream()
+                            .reduce(0, Integer::sum))
+                    .divide(BigDecimal.valueOf(size), scale, roundingMode);
+        };
     }
 
     public static BigDecimal min(Collection<BigDecimal> decimals) {
-        switch (decimals.size()) {
-            case 0:
-                return null;
-            case 1:
-                return decimals.iterator().next();
-            default:
-                return decimals
-                        .stream()
-                        .min(Comparator.naturalOrder())
-                        .get();
-        }
+        return switch (decimals.size()) {
+            case 0 -> null;
+            case 1 -> decimals.iterator().next();
+            default -> decimals
+                    .stream()
+                    .min(Comparator.naturalOrder())
+                    .get();
+        };
     }
 
     public static BigDecimal max(Collection<BigDecimal> decimals) {
-        switch (decimals.size()) {
-            case 0:
-                return null;
-            case 1:
-                return decimals.iterator().next();
-            default:
-                return decimals
-                        .stream()
-                        .max(Comparator.naturalOrder())
-                        .get();
-        }
+        return switch (decimals.size()) {
+            case 0 -> null;
+            case 1 -> decimals.iterator().next();
+            default -> decimals
+                    .stream()
+                    .max(Comparator.naturalOrder())
+                    .get();
+        };
     }
 
     public static BigDecimal divide(
@@ -327,15 +273,15 @@ public class Num {
     }
 
     public static BigDecimal multiplyP8(BigDecimal d1, BigDecimal d2) {
-        return d1.multiply(d2, MATH_CONTEXT_P8_HALF_UP);
+        return d1.multiply(d2, MATH_CTX_P8_HALF_UP);
     }
 
     public static BigDecimal multiplyP12(BigDecimal d1, BigDecimal d2) {
-        return d1.multiply(d2, MATH_CONTEXT_P12_HALF_UP);
+        return d1.multiply(d2, MATH_CTX_P12_HALF_UP);
     }
 
     public static BigDecimal multiplyP16(BigDecimal d1, BigDecimal d2) {
-        return d1.multiply(d2, MATH_CONTEXT_P16_HALF_UP);
+        return d1.multiply(d2, MATH_CTX_P16_HALF_UP);
     }
 
 }
