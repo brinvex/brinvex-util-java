@@ -1,6 +1,7 @@
 package com.brinvex.util.java.validation;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
@@ -70,6 +71,18 @@ public class Check {
 
     public static String isNull(Object input, Supplier<String> msg) {
         if (input != null) {
+            return nullSafeGet(msg);
+        }
+        return null;
+    }
+
+    public static <T> String equal(T object1, T object2) {
+        return equal(object1, object2, () -> "must be equal, but given: %s, %s".formatted(object1, object2));
+    }
+
+    public static <T> String equal(T object1, T object2, Supplier<String> msg) {
+        boolean equal = Objects.equals(object1, object2);
+        if (!equal) {
             return nullSafeGet(msg);
         }
         return null;
@@ -184,7 +197,6 @@ public class Check {
         }
         return null;
     }
-
 
     public static String matches(String input, Pattern pattern) {
         return matches(input, pattern, () -> "must match '%s', but given: '%s'".formatted(pattern, input));

@@ -53,6 +53,14 @@ public class Validate {
         throwIfNotNull(Check.isNull(input, msg));
     }
 
+    public static <T> void equal(T object1, T object2) {
+        throwIfNotNull(Check.equal(object1, object2));
+    }
+
+    public static <T> void equal(T object1, T object2, Supplier<String> msg) {
+        throwIfNotNull(Check.equal(object1, object2, msg));
+    }
+
     public static void empty(String input) {
         throwIfNotNull(Check.empty(input));
     }
