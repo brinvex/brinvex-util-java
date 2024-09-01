@@ -6,271 +6,136 @@ import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 /**
- * The {@code Assert} class is designed for checks that enforce the correctness
- * of the application's state, which should always be valid if the code is functioning correctly.
- * It uses {@code IllegalStateException} to indicate that
- * the application's internal state is inconsistent.
- * <p>
- * The {@code Validate} class focuses on validating inputs to public methods,
- * ensuring that method arguments meet expected conditions.
- * It uses {@code IllegalArgumentException} to indicate that
- * the provided arguments are invalid for the method's operation.
- * <p>
- * Both classes, {@link Assert} and {@link Validate}, delegate all method calls to a shared
- * internal implementation. Consequently, the only difference in behavior between them
- * lies in the type of exception thrown. The logic for validation and state checking is
- * consistent across both classes, ensuring that only the exception type distinguishes them.
+ * <ul>
+ *   <li>{@code Check} - If the condition is satisfied, returns {@code null}; otherwise, returns a message describing the condition violation.</li>
+ *   <li>{@code Assert} - If the condition is satisfied, does nothing; otherwise, throws an {@code IllegalStateException} with a message describing the condition violation.</li>
+ *   <li>{@code Validate} - If the condition is satisfied, does nothing; otherwise, throws an {@code IllegalArgumentException} with a message describing the condition violation.</li>
+ * </ul>
  */
 @SuppressWarnings({"SameParameterValue", "unused"})
 public class Assert {
 
-    private static final ValidationEngine engine = new ValidationEngine(IllegalStateException::new);
-
-    /********************************************************************
-     * BOOLEAN
-     ********************************************************************/
-
-    public static void isTrue(boolean expression) {
-        engine.isTrue(expression);
+    private static void throwIfNotNull(String violationMsg) {
+        if (violationMsg != null) {
+            throw new IllegalStateException(violationMsg);
+        }
     }
 
-    public static void isTrue(boolean expression, Supplier<String> msg) {
-        engine.isTrue(expression, msg);
+    public static void isTrue(Boolean expression) {
+        throwIfNotNull(Check.isTrue(expression));
     }
 
-    public static void isFalse(boolean expression) {
-        engine.isFalse(expression);
+    public static void isTrue(Boolean expression, Supplier<String> msg) {
+        throwIfNotNull(Check.isTrue(expression, msg));
     }
 
-    public static void isFalse(boolean expression, Supplier<String> msg) {
-        engine.isFalse(expression, msg);
+    public static void isFalse(Boolean expression) {
+        throwIfNotNull(Check.isFalse(expression));
     }
 
-    /********************************************************************
-     * OBJECT
-     ********************************************************************/
+    public static void isFalse(Boolean expression, Supplier<String> msg) {
+        throwIfNotNull(Check.isFalse(expression, msg));
+    }
 
     public static void notNull(Object input) {
-        engine.notNull(input);
+        throwIfNotNull(Check.notNull(input));
     }
 
     public static void notNull(Object input, Supplier<String> msg) {
-        engine.notNull(input, msg);
+        throwIfNotNull(Check.notNull(input, msg));
     }
 
     public static void isNull(Object input) {
-        engine.isNull(input);
+        throwIfNotNull(Check.isNull(input));
     }
 
     public static void isNull(Object input, Supplier<String> msg) {
-        engine.isNull(input, msg);
-    }
-
-    public static void equal(Object input1, Object input2) {
-        engine.equal(input1, input2);
-    }
-
-    public static void equal(Object input1, Object input2, Supplier<String> msg) {
-        engine.equal(input1, input2, msg);
-    }
-
-    /********************************************************************
-     * STRING
-     ********************************************************************/
-
-    public static void blank(String input) {
-        engine.blank(input);
-    }
-
-    public static void blank(String input, Supplier<String> msg) {
-        engine.blank(input, msg);
+        throwIfNotNull(Check.isNull(input, msg));
     }
 
     public static void empty(String input) {
-        engine.empty(input);
+        throwIfNotNull(Check.empty(input));
     }
 
     public static void empty(String input, Supplier<String> msg) {
-        engine.empty(input, msg);
+        throwIfNotNull(Check.empty(input, msg));
     }
 
-    public static void contains(String haystack, String needle) {
-        engine.contains(haystack, needle);
-    }
-
-    public static void contains(String haystack, String needle, Supplier<String> msg) {
-        engine.contains(haystack, needle, msg);
-    }
-
+    /**
+     * Similar to the {@link jakarta.validation.constraints.NotBlank}
+     */
     public static void notNullNotBlank(String input) {
-        engine.notNullNotBlank(input);
+        throwIfNotNull(Check.notNullNotBlank(input));
     }
 
+    /**
+     * Similar to the {@link jakarta.validation.constraints.NotBlank}
+     */
     public static void notNullNotBlank(String input, Supplier<String> msg) {
-        engine.notNullNotBlank(input, msg);
+        throwIfNotNull(Check.notNullNotBlank(input, msg));
     }
-
-    public static void nullOrNotBlank(String input) {
-        engine.nullOrNotBlank(input);
-    }
-
-    public static void nullOrNotBlank(String input, Supplier<String> msg) {
-        engine.nullOrNotBlank(input, msg);
-    }
-
-    /********************************************************************
-     * NUMBER
-     ********************************************************************/
 
     public static void zero(BigDecimal number) {
-        engine.zero(number);
+        throwIfNotNull(Check.zero(number));
     }
 
     public static void zero(BigDecimal number, Supplier<String> msg) {
-        engine.zero(number, msg);
-    }
-
-    public static void nullOrZero(BigDecimal number) {
-        engine.nullOrZero(number);
-    }
-
-    public static void nullOrZero(BigDecimal number, Supplier<String> msg) {
-        engine.nullOrZero(number, msg);
+        throwIfNotNull(Check.zero(number, msg));
     }
 
     public static void positive(BigDecimal number) {
-        engine.positive(number);
+        throwIfNotNull(Check.positive(number));
     }
 
     public static void positive(BigDecimal number, Supplier<String> msg) {
-        engine.positive(number, msg);
+        throwIfNotNull(Check.positive(number, msg));
     }
 
-    public static void nullOrPositive(BigDecimal number) {
-        engine.nullOrPositive(number);
+    public static void positiveOrZero(BigDecimal number) {
+        throwIfNotNull(Check.positiveOrZero(number));
     }
 
-    public static void nullOrPositive(BigDecimal number, Supplier<String> msg) {
-        engine.nullOrPositive(number, msg);
+    public static void positiveOrZero(BigDecimal number, Supplier<String> msg) {
+        throwIfNotNull(Check.positiveOrZero(number, msg));
     }
 
     public static void negative(BigDecimal number) {
-        engine.negative(number);
+        throwIfNotNull(Check.negative(number));
     }
 
     public static void negative(BigDecimal number, Supplier<String> msg) {
-        engine.negative(number, msg);
+        throwIfNotNull(Check.negative(number, msg));
     }
 
-    public static void nullOrNegative(BigDecimal number) {
-        engine.nullOrNegative(number);
+    public static void negativeOrZero(BigDecimal number) {
+        throwIfNotNull(Check.negativeOrZero(number));
     }
 
-    public static void nullOrNegative(BigDecimal number, Supplier<String> msg) {
-        engine.nullOrNegative(number, msg);
+    public static void negativeOrZero(BigDecimal number, Supplier<String> msg) {
+        throwIfNotNull(Check.negativeOrZero(number, msg));
     }
 
     public static void equal(BigDecimal number1, BigDecimal number2) {
-        engine.equal(number1, number2);
+        throwIfNotNull(Check.equal(number1, number2));
     }
 
     public static void equal(BigDecimal number1, BigDecimal number2, Supplier<String> msg) {
-        engine.equal(number1, number2, msg);
+        throwIfNotNull(Check.equal(number1, number2, msg));
     }
-
-    public static void greaterThan(BigDecimal number1, BigDecimal number2) {
-        engine.greaterThan(number1, number2);
-    }
-
-    public static void greaterThan(BigDecimal number1, BigDecimal number2, Supplier<String> msg) {
-        engine.greaterThan(number1, number2, msg);
-    }
-
-    public static void equalOrGreaterThan(BigDecimal number1, BigDecimal number2) {
-        engine.equalOrGreaterThan(number1, number2);
-    }
-
-    public static void equalOrGreaterThan(BigDecimal number1, BigDecimal number2, Supplier<String> msg) {
-        engine.equalOrGreaterThan(number1, number2, msg);
-    }
-
-    public static void lessThan(BigDecimal number1, BigDecimal number2) {
-        engine.lessThan(number1, number2);
-    }
-
-    public static void lessThan(BigDecimal number1, BigDecimal number2, Supplier<String> msg) {
-        engine.lessThan(number1, number2, msg);
-    }
-
-    public static void equalOrLessThan(BigDecimal number1, BigDecimal number2) {
-        engine.equalOrLessThan(number1, number2);
-    }
-
-    public static void equalOrLessThan(BigDecimal number1, BigDecimal number2, Supplier<String> msg) {
-        engine.equalOrLessThan(number1, number2, msg);
-    }
-
-    public static void opposite(BigDecimal number1, BigDecimal number2) {
-        engine.opposite(number1, number2);
-    }
-
-    public static void opposite(BigDecimal number1, BigDecimal number2, Supplier<String> msg) {
-        engine.opposite(number1, number2, msg);
-    }
-
-    /********************************************************************
-     * DATE
-     ********************************************************************/
-
-    public static void before(LocalDate leftDate, LocalDate rightDate) {
-        engine.before(leftDate, rightDate);
-    }
-
-    public static void before(LocalDate leftDate, LocalDate rightDate, Supplier<String> msg) {
-        engine.before(leftDate, rightDate, msg);
-    }
-
-    public static void equalOrAfter(LocalDate leftDate, LocalDate rightDate) {
-        engine.equalOrAfter(leftDate, rightDate);
-    }
-
-    public static void equalOrAfter(LocalDate leftDate, LocalDate rightDate, Supplier<String> msg) {
-        engine.equalOrAfter(leftDate, rightDate, msg);
-    }
-
-    /********************************************************************
-     * REGEX
-     ********************************************************************/
 
     public static void matches(String input, Pattern pattern) {
-        engine.matches(input, pattern);
+        throwIfNotNull(Check.matches(input, pattern));
     }
 
     public static void matches(String input, Pattern pattern, Supplier<String> msg) {
-        engine.matches(input, pattern, msg);
+        throwIfNotNull(Check.matches(input, pattern, msg));
     }
 
     public static void emptyOrMatches(String input, Pattern pattern) {
-        engine.emptyOrMatches(input, pattern);
+        throwIfNotNull(Check.emptyOrMatches(input, pattern));
     }
 
     public static void emptyOrMatches(String input, Pattern pattern, Supplier<String> msg) {
-        engine.emptyOrMatches(input, pattern, msg);
-    }
-
-    public static void nullOrEmptyOrMatches(String input, Pattern pattern) {
-        engine.nullOrEmptyOrMatches(input, pattern);
-    }
-
-    public static void nullOrEmptyOrMatches(String input, Pattern pattern, Supplier<String> msg) {
-        engine.nullOrEmptyOrMatches(input, pattern, msg);
-    }
-
-    public static void nullOrMatches(String input, Pattern pattern) {
-        engine.nullOrMatches(input, pattern);
-    }
-
-    public static void nullOrMatches(String input, Pattern pattern, Supplier<String> msg) {
-        engine.nullOrMatches(input, pattern, msg);
+        throwIfNotNull(Check.emptyOrMatches(input, pattern, msg));
     }
 }
