@@ -2,13 +2,17 @@ package com.brinvex.util.java;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static java.util.function.Function.identity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -82,6 +86,43 @@ public class CollectorTest {
             fail();
         } catch (IllegalStateException e) {
             assertEquals("Duplicate key 1 (attempted merging values 10 and 11)", e.getMessage());
+        }
+    }
+
+    @Test
+    void toEnumMap() {
+        Stream<String> sourceItemStream = Stream.of(
+                        Month.JANUARY,
+                        Month.FEBRUARY,
+                        Month.MARCH)
+                .map(Month::name);
+
+        EnumMap<Month, String> enumMap = sourceItemStream
+                .collect(Collectors.toEnumMap(Month.class, Month::valueOf, e -> e));
+
+        assertEquals(Map.of(
+                Month.JANUARY, Month.JANUARY.name(),
+                Month.FEBRUARY, Month.FEBRUARY.name(),
+                Month.MARCH, Month.MARCH.name()
+        ), enumMap);
+    }
+
+    @Test
+    void toEnumMap_duplicateNotAllowed() {
+        Stream<String> sourceItemStream = Stream.of(
+                        Month.JANUARY,
+                        Month.FEBRUARY,
+                        Month.FEBRUARY,
+                        Month.MARCH)
+                .map(Month::name);
+
+
+        try {
+            EnumMap<Month, String> enumMap = sourceItemStream
+                    .collect(Collectors.toEnumMap(Month.class, Month::valueOf, e -> e));
+            fail("should fail, but passed: " + enumMap);
+        } catch (IllegalStateException e) {
+            assertEquals("Duplicate key FEBRUARY (attempted merging values FEBRUARY and FEBRUARY)", e.getMessage());
         }
     }
 }

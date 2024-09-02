@@ -1,6 +1,7 @@
 package com.brinvex.util.java;
 
 import java.util.Collections;
+import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -107,6 +108,17 @@ public class Collectors {
             Function<? super T, ? extends U> valueMapper
     ) {
         return new CollectorImpl<>(TreeMap::new,
+                uniqKeysMapAccumulator(keyMapper, valueMapper),
+                uniqKeysMapMerger(),
+                CH_ID);
+    }
+
+    public static <T, K extends Enum<K>, U> Collector<T, ?, EnumMap<K, U>> toEnumMap(
+            Class<K> enumType,
+            Function<? super T, K> keyMapper,
+            Function<? super T, ? extends U> valueMapper
+    ) {
+        return new CollectorImpl<>(() -> new EnumMap<>(enumType),
                 uniqKeysMapAccumulator(keyMapper, valueMapper),
                 uniqKeysMapMerger(),
                 CH_ID);
