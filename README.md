@@ -7,7 +7,7 @@ _Brinvex-Util-Java_ is a compact library containing various helper utilities for
 ### Maven dependency declaration
 ````
 <properties>
-    <brinvex-util-java.version>1.57.2</brinvex-util-java.version>
+    <brinvex-util-java.version>1.57.3</brinvex-util-java.version>
 </properties>    
 
 <repository>
