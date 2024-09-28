@@ -17,6 +17,7 @@ public class Num {
     public static final MathContext MATH_CTX_P12_HALF_UP = new MathContext(12, HALF_UP);
     public static final MathContext MATH_CTX_P16_HALF_UP = new MathContext(16, HALF_UP);
 
+    public static final BigDecimal _100 = new BigDecimal("100");
     public static final BigDecimal _100$00 = new BigDecimal("100.00");
 
     public static BigDecimal of(String s) {
