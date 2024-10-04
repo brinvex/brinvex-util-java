@@ -268,7 +268,7 @@ public class CollectionUtil {
         return removeAdjacentDuplicates(collection.entrySet(), (e1, e2) -> valueEqualityPredicate.test(e1.getValue(), e2.getValue()));
     }
 
-    public static <K extends Comparable<K>, V> SortedMap<K, V> rangeSafeSubMap(SortedMap<K, V> map, K fromKeyIncl, K toKeyExcl) {
+    public static <K extends Comparable<? super K>, V> SortedMap<K, V> rangeSafeSubMap(SortedMap<K, V> map, K fromKeyIncl, K toKeyExcl) {
         if (map.isEmpty()) {
             return map;
         }
