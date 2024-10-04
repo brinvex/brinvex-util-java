@@ -12,12 +12,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
+import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static java.lang.String.format;
+import static java.util.Collections.emptySortedMap;
 
 @SuppressWarnings("DuplicatedCode")
 public class CollectionUtil {
@@ -266,4 +268,30 @@ public class CollectionUtil {
         return removeAdjacentDuplicates(collection.entrySet(), (e1, e2) -> valueEqualityPredicate.test(e1.getValue(), e2.getValue()));
     }
 
+    public static <K extends Comparable<K>, V> SortedMap<K, V> rangeSafeSubMap(SortedMap<K, V> map, K fromKeyIncl, K toKeyExcl) {
+        if (map.isEmpty()) {
+            return map;
+        }
+        K oldFirstKey = map.firstKey();
+        K oldLastKey = map.lastKey();
+        if (fromKeyIncl.compareTo(oldFirstKey) <= 0) {
+            if (toKeyExcl.compareTo(oldLastKey) > 0) {
+                return map;
+            } else if (toKeyExcl.compareTo(oldFirstKey) <= 0) {
+                return emptySortedMap();
+            } else {
+                return map.headMap(toKeyExcl);
+            }
+        } else if (fromKeyIncl.compareTo(oldLastKey) > 0) {
+            return emptySortedMap();
+        } else {
+            if (toKeyExcl.compareTo(oldLastKey) > 0) {
+                return map.tailMap(fromKeyIncl);
+            } else if (toKeyExcl.compareTo(fromKeyIncl) <= 0) {
+                return emptySortedMap();
+            } else {
+                return map.subMap(fromKeyIncl, toKeyExcl);
+            }
+        }
+    }
 }
