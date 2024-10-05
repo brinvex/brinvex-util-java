@@ -277,21 +277,21 @@ public class CollectionUtil {
         if (fromKeyIncl.compareTo(oldFirstKey) <= 0) {
             if (toKeyExcl.compareTo(oldLastKey) > 0) {
                 return map;
-            } else if (toKeyExcl.compareTo(oldFirstKey) <= 0) {
-                return emptySortedMap();
-            } else {
+            } else if (toKeyExcl.compareTo(oldFirstKey) > 0) {
                 return map.headMap(toKeyExcl);
+            } else {
+                return emptySortedMap();
             }
-        } else if (fromKeyIncl.compareTo(oldLastKey) > 0) {
-            return emptySortedMap();
-        } else {
+        } else if (fromKeyIncl.compareTo(oldLastKey) <= 0) {
             if (toKeyExcl.compareTo(oldLastKey) > 0) {
                 return map.tailMap(fromKeyIncl);
-            } else if (toKeyExcl.compareTo(fromKeyIncl) <= 0) {
-                return emptySortedMap();
-            } else {
+            } else if (toKeyExcl.compareTo(fromKeyIncl) > 0) {
                 return map.subMap(fromKeyIncl, toKeyExcl);
+            } else {
+                return emptySortedMap();
             }
+        } else  {
+            return emptySortedMap();
         }
     }
 }
