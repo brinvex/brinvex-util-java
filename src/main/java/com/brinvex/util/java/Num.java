@@ -86,7 +86,7 @@ public class Num {
     }
 
     public static boolean equal(BigDecimal bd1, BigDecimal bd2, int scale) {
-         return equal(bd1, bd2, scale, DEFAULT_ROUNDING_MODE);
+        return equal(bd1, bd2, scale, DEFAULT_ROUNDING_MODE);
     }
 
     public static BigDecimal avg(Collection<BigDecimal> decimals, int scale) {
@@ -97,7 +97,7 @@ public class Num {
         int size = decimals.size();
         return switch (size) {
             case 0 -> null;
-            case 1 -> decimals.iterator().next();
+            case 1 -> decimals.iterator().next().setScale(scale, roundingMode);
             default -> decimals
                     .stream()
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
@@ -109,12 +109,12 @@ public class Num {
         return intAvg(decimals, scale, DEFAULT_ROUNDING_MODE);
     }
 
-    public static BigDecimal intAvg(Collection<Integer> decimals, int scale, RoundingMode roundingMode) {
-        int size = decimals.size();
+    public static BigDecimal intAvg(Collection<Integer> integers, int scale, RoundingMode roundingMode) {
+        int size = integers.size();
         return switch (size) {
             case 0 -> null;
-            case 1 -> BigDecimal.valueOf(decimals.iterator().next());
-            default -> BigDecimal.valueOf(decimals
+            case 1 -> BigDecimal.valueOf(integers.iterator().next()).setScale(scale, roundingMode);
+            default -> BigDecimal.valueOf(integers
                             .stream()
                             .reduce(0, Integer::sum))
                     .divide(BigDecimal.valueOf(size), scale, roundingMode);
