@@ -19,6 +19,7 @@ public class Num {
 
     public static final BigDecimal _100 = new BigDecimal("100");
     public static final BigDecimal _100$00 = new BigDecimal("100.00");
+    public static final BigDecimal MINUS_1 = new BigDecimal("-1");
 
     public static BigDecimal of(String s) {
         return s == null ? null : new BigDecimal(s);
