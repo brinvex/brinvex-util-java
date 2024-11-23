@@ -43,6 +43,14 @@ public class CsvTableTest {
                 Map.of("h0", "v00", "h1", "v01", "h2", "v02"),
                 Map.of("h0", "v10", "h1", "v11", "h2", "v12")
         ), table.bodyRows().toList());
+
+        assertEquals(List.of(
+                Map.of("h0", "v00", "h1", "v01", "h2", "v02"),
+                Map.of("h0", "v10", "h1", "v11", "h2", "v12")
+        ), List.of(
+                table.bodyRow(0),
+                table.bodyRow(1)
+        ));
     }
 
     @Test

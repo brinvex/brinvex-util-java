@@ -46,14 +46,14 @@ public class CsvTable {
     }
 
     /**
-     * @param bodyRowIdx - zero-based
+     * @param bodyRowIdx - body row index - zero-based
      */
     public String getValue(int bodyRowIdx, String header) {
         return body.get(bodyRowIdx).get(headers.get(header));
     }
 
     /**
-     * @param bodyRowIdx - zero-based
+     * @param bodyRowIdx - body row index - zero-based
      */
     public String getValue(int bodyRowIdx, int col) {
         return body.get(bodyRowIdx).get(col);
@@ -65,6 +65,16 @@ public class CsvTable {
 
     public int bodySize() {
         return body.size();
+    }
+
+    /**
+     * @param bodyRowIdx - body row index - zero-based
+     */
+    public Map<String, String> bodyRow(int bodyRowIdx) {
+        List<String> rowValues = body.get(bodyRowIdx);
+        return headers.entrySet()
+                .stream()
+                .collect(toLinkedMap(Map.Entry::getKey, e -> rowValues.get(e.getValue())));
     }
 
     public Stream<Map<String, String>> bodyRows() {
