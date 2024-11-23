@@ -5,6 +5,7 @@ import com.brinvex.util.java.csv.CsvTable;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -36,6 +37,12 @@ public class CsvTableTest {
                 v10,v11,v12
                 """
                 .lines().toList(), csvLines);
+
+        assertEquals(2, table.bodySize());
+        assertEquals(List.of(
+                Map.of("h0", "v00", "h1", "v01", "h2", "v02"),
+                Map.of("h0", "v10", "h1", "v11", "h2", "v12")
+        ), table.bodyRows().toList());
     }
 
     @Test

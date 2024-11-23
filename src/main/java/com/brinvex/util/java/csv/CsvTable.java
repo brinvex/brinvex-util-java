@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static com.brinvex.util.java.Collectors.toLinkedMap;
 import static java.util.function.Function.identity;
@@ -44,20 +46,32 @@ public class CsvTable {
     }
 
     /**
-     * @param row - zero-based
+     * @param bodyRowIdx - zero-based
      */
-    public String getValue(int row, String header) {
-        return body.get(row).get(headers.get(header));
+    public String getValue(int bodyRowIdx, String header) {
+        return body.get(bodyRowIdx).get(headers.get(header));
     }
 
     /**
-     * @param row - zero-based
+     * @param bodyRowIdx - zero-based
      */
-    public String getValue(int row, int col) {
-        return body.get(row).get(col);
+    public String getValue(int bodyRowIdx, int col) {
+        return body.get(bodyRowIdx).get(col);
     }
 
     public List<String> toCsvLines(CsvConfig config) {
         return CsvFormatter.formatCsvLines(headers.keySet(), body, config);
+    }
+
+    public int bodySize() {
+        return body.size();
+    }
+
+    public Stream<Map<String, String>> bodyRows() {
+        return body
+                .stream()
+                .map(bodyRow -> headers.entrySet()
+                        .stream()
+                        .collect(toLinkedMap(Map.Entry::getKey, e -> bodyRow.get(e.getValue()))));
     }
 }
