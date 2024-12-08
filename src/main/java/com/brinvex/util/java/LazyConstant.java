@@ -7,17 +7,17 @@ import java.util.function.Supplier;
  * //todo 4 Make it sealed
  * Inspired by <a href="https://www.baeldung.com/java-lambda-lazy-field-initialization">www.baeldung.com/java-lambda-lazy-field-initialization</a>
  */
-public interface LazyConstant<T> extends Supplier<T> {
+public abstract class LazyConstant<T> implements Supplier<T> {
 
-    static <T> LazyConstant<T> threadSafe(Supplier<T> supplier) {
+    public static <T> LazyConstant<T> threadSafe(Supplier<T> supplier) {
         return new ThreadSafeLazyConstant<>(supplier);
     }
 
-    static <T> LazyConstant<T> nonThreadSafe(Supplier<T> supplier) {
+    public static <T> LazyConstant<T> nonThreadSafe(Supplier<T> supplier) {
         return new NonThreadSafeLazyConstant<>(supplier);
     }
 
-    final class ThreadSafeLazyConstant<T> implements LazyConstant<T> {
+    private static final class ThreadSafeLazyConstant<T> extends LazyConstant<T> {
 
         private final Supplier<T> supplier;
 
@@ -59,7 +59,7 @@ public interface LazyConstant<T> extends Supplier<T> {
         }
     }
 
-    final class NonThreadSafeLazyConstant<T> implements LazyConstant<T> {
+    private static final class NonThreadSafeLazyConstant<T> extends LazyConstant<T> {
 
         private final Supplier<T> supplier;
 

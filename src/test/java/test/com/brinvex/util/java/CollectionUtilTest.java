@@ -1,5 +1,6 @@
-package com.brinvex.util.java;
+package test.com.brinvex.util.java;
 
+import com.brinvex.util.java.CollectionUtil;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

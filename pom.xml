@@ -4,20 +4,50 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.brinvex.util</groupId>
+    <groupId>com.brinvex</groupId>
     <artifactId>brinvex-util-java</artifactId>
-    <version>1.57.14</version>
+    <version>1.0.1</version>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <java.version>17</java.version>
+
+        <maven-deploy-plugin.version>3.1.3</maven-deploy-plugin.version>
+        <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <junit-jupiter.version>5.10.1</junit-jupiter.version>
+        <junit-jupiter.version>5.11.3</junit-jupiter.version>
+        <mockito.version>5.14.2</mockito.version>
 
+        <github-site-maven-plugin.version>0.11</github-site-maven-plugin.version>
         <github.global.server>github</github.global.server>
-        <mockito.version>5.2.0</mockito.version>
     </properties>
+
+    <url>https://brinvex.com</url>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Lukas</name>
+            <email>dev@brinvex.com</email>
+            <organization>Brinvex</organization>
+            <organizationUrl>https://brinvex.com</organizationUrl>
+        </developer>
+    </developers>
+    <scm>
+        <url>https://github.com/brinvex/brinvex-util-java</url>
+    </scm>
+    <organization>
+        <name>Brinvex</name>
+        <url>https://brinvex.com</url>
+    </organization>
+    <inceptionYear>2024</inceptionYear>
+
 
     <dependencyManagement>
         <dependencies>
@@ -59,8 +89,8 @@
 
     <distributionManagement>
         <repository>
-            <id>internal.repo</id>
-            <name>Temporary Staging Repository</name>
+            <id>temp-internal-staging-repo</id>
+            <name>Temporary Internal Staging Repository</name>
             <url>file://${project.build.directory}/repo</url>
         </repository>
     </distributionManagement>
@@ -73,16 +103,9 @@
             https://stackoverflow.com/questions/14013644/hosting-a-maven-repository-on-github
             -->
             <plugin>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.1</version>
-                <configuration>
-                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/repo</altDeploymentRepository>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>${maven-source-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -95,7 +118,7 @@
             <plugin>
                 <groupId>com.github.github</groupId>
                 <artifactId>site-maven-plugin</artifactId>
-                <version>0.11</version>
+                <version>${github-site-maven-plugin.version}</version>
                 <configuration>
                     <!-- git commit message -->
                     <message>Maven artifacts for ${project.name} ${project.version}</message>

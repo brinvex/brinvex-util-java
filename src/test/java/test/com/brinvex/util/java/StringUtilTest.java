@@ -1,5 +1,6 @@
-package com.brinvex.util.java;
+package test.com.brinvex.util.java;
 
+import com.brinvex.util.java.StringUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledForJreRange;
 import org.junit.jupiter.api.condition.JRE;

@@ -1,10 +1,10 @@
-package com.brinvex.util.java;
+package test.com.brinvex.util.java;
 
+import com.brinvex.util.java.Collectors;
 import org.junit.jupiter.api.Test;
 
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -36,7 +36,6 @@ public class CollectorTest {
     public void toMapCollector_duplicateNotAllowed() {
         record Pair(int x, int y) {
         }
-        ;
         List<Pair> pairs = List.of(new Pair(1, 10), new Pair(2, 20), new Pair(1, 11));
         try {
             Map<Integer, Integer> m1 = pairs.stream().collect(java.util.stream.Collectors.toMap(Pair::x, Pair::y));

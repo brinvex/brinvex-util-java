@@ -1,5 +1,6 @@
-package com.brinvex.util.java;
+package test.com.brinvex.util.java;
 
+import com.brinvex.util.java.LazyConstant;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledForJreRange;
 import org.junit.jupiter.api.condition.JRE;
@@ -25,6 +26,7 @@ public class LazyConstantTest {
     @EnabledForJreRange(max = JRE.JAVA_20)
     @Test
     public void whenCalledMultipleTimes_thenShouldBeCalledOnlyOnce() {
+
         @SuppressWarnings("unchecked") Supplier<String> mockedExpensiveFunction = Mockito.mock(Supplier.class);
         Mockito.when(mockedExpensiveFunction.get())
                 .thenReturn("ok");

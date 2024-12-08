@@ -1,5 +1,6 @@
-package com.brinvex.util.java;
+package test.com.brinvex.util.java;
 
+import com.brinvex.util.java.RandomUtil;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
