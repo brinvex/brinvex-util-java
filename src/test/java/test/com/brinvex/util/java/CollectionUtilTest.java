@@ -1,6 +1,6 @@
 package test.com.brinvex.util.java;
 
-import com.brinvex.util.java.CollectionUtil;
+import com.brinvex.util.java.collection.CollectionUtil;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import static com.brinvex.util.java.CollectionUtil.rangeSafeSubMap;
+import static com.brinvex.util.java.collection.CollectionUtil.rangeSafeSubMap;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.emptySet;

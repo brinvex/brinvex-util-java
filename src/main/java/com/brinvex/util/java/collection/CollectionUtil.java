@@ -1,4 +1,4 @@
-package com.brinvex.util.java;
+package com.brinvex.util.java.collection;
 
 import java.util.ArrayList;
 import java.util.Collection;

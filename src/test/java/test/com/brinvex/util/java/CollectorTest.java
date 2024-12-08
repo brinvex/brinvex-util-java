@@ -1,6 +1,6 @@
 package test.com.brinvex.util.java;
 
-import com.brinvex.util.java.Collectors;
+import com.brinvex.util.java.collection.Collectors;
 import org.junit.jupiter.api.Test;
 
 import java.time.Month;
@@ -70,7 +70,7 @@ public class CollectorTest {
         }
         List<Pair> pairs = IntStream.range(1, 100000).boxed().map(i -> new Pair(i, -i)).toList();
 
-        Map<Integer, Integer> m1 = pairs.stream().collect(com.brinvex.util.java.Collectors.toLinkedMap(Pair::x, Pair::y));
+        Map<Integer, Integer> m1 = pairs.stream().collect(Collectors.toLinkedMap(Pair::x, Pair::y));
         assertEquals(m1.keySet(), pairs.stream().map(Pair::x).collect(java.util.stream.Collectors.toSet()));
         assertEquals(new ArrayList<>(m1.values()), pairs.stream().map(Pair::y).toList());
     }
@@ -81,7 +81,7 @@ public class CollectorTest {
         }
         List<Pair> pairs = List.of(new Pair(1, 10), new Pair(2, 20), new Pair(1, 11));
         try {
-            Map<Integer, Integer> m1 = pairs.stream().collect(com.brinvex.util.java.Collectors.toLinkedMap(Pair::x, Pair::y));
+            Map<Integer, Integer> m1 = pairs.stream().collect(Collectors.toLinkedMap(Pair::x, Pair::y));
             fail();
         } catch (IllegalStateException e) {
             assertEquals("Duplicate key 1 (attempted merging values 10 and 11)", e.getMessage());

@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.StringJoiner;
 import java.util.function.Function;
 
-import static com.brinvex.util.java.Collectors.toLinkedMap;
+import static com.brinvex.util.java.collection.Collectors.toLinkedMap;
 import static java.util.function.Function.identity;
 
 /**
